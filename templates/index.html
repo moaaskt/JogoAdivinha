@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Jogo do Número Mágico</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+  
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      color: #f0f0f0;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.6;
+    }
+  
+    h1, h2 {
+        text-align: center;
+        font-size: 2rem;
+        background: linear-gradient(90deg, #00ffe1, #00b3ff, #00ffe1);
+        background-size: 300%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: neonText 4s ease-in-out infinite;
+        margin-bottom: 10px;
+        text-shadow: 0 0 5px #00ffe1, 0 0 10px #00ffe1;
+      }
+      
+      @keyframes neonText {
+        0% {
+          background-position: 0% 50%;
+          text-shadow: 0 0 5px #00ffe1, 0 0 10px #00ffe1, 0 0 20px #00ffe1;
+        }
+        50% {
+          background-position: 100% 50%;
+          text-shadow: 0 0 10px #00b3ff, 0 0 20px #00b3ff, 0 0 30px #00b3ff;
+        }
+        100% {
+          background-position: 0% 50%;
+          text-shadow: 0 0 5px #00ffe1, 0 0 10px #00ffe1, 0 0 20px #00ffe1;
+        }
+      }
+  
+    ol {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-left: 4px solid #00ffe1;
+      padding: 15px 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #00ffe144;
+    }
+  
+    input, button {
+      padding: 12px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background-color: #1a1a1a;
+      color: #00ffe1;
+      border: 1px solid #00ffe1;
+      transition: 0.3s ease-in-out;
+    }
+  
+    input:focus {
+      background-color: #111;
+      box-shadow: 0 0 10px #00ffe1;
+    }
+  
+    button {
+      background: linear-gradient(90deg, #00ffe1, #00b3ff);
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  
+    button:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px #00ffe1;
+    }
+  
+    #mensagem {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #1a1a1a;
+      border: 1px solid #00ffe1;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+  
+    #tentativasArea {
+      margin-top: 20px;
+    }
+  
+    #ranking {
+      margin-top: 30px;
+      padding-top: 10px;
+      background-color: rgba(0, 255, 225, 0.05);
+      border: 1px solid #00ffe1;
+      border-radius: 8px;
+      padding: 15px;
+    }
+  
+    #listaRanking {
+      list-style: none;
+      padding: 0;
+    }
+  
+    #listaRanking li {
+      padding: 8px 0;
+      border-bottom: 1px solid #00ffe155;
+      color: #ffffff;
+    }
+  
+    #listaRanking li:last-child {
+      border: none;
+    }
+  </style>
+  
+</head>
+<body>
+  <h1>Jogo: Adivinhe o Número Mágico</h1>
+
+  <form method="POST">
+    <p>Nome: <input type="text" name="nome" value="{{ nome }}" required></p>
+    <p>Palpite: <input type="number" name="palpite" required></p>
+    <input type="hidden" name="numero_secreto" value="{{ numero_secreto }}">
+    <input type="hidden" name="tentativas" value="{{ tentativas }}">
+    <button type="submit">Enviar Palpite</button>
+  </form>
+
+  {% if mensagem %}
+    <p><strong>{{ mensagem }}</strong></p>
+  {% endif %}
+
+  <h2>Ranking:</h2>
+  <ul>
+    {% for jogador, pontos in ranking %}
+      <li>{{ jogador }} - {{ pontos }} pts</li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
