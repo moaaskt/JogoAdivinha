@@ -29,6 +29,11 @@ Um jogo web com Python + Flask, onde o jogador (ou dois jogadores) tentam adivin
 
 7. O ranking é salvo automaticamente em um arquivo .txt.
 
+# 📦  Execução
+
+### Rode o servidor Flask, digite no terminal(cmd):
+python app.py
+
 # 🧠 Como jogar (via navegador)
 
 1. Acesse http://127.0.0.1:5000/
@@ -62,11 +67,6 @@ Flask para transformar o jogo em um site.
 HTML + CSS para a interface visual.
 
 Arquivo ranking.txt para salvar os resultados.
-
-# 📦  Execução
-
-### Rode o servidor Flask
-python app.py
 
 
 # 💬 Contato
