@@ -1,6 +1,6 @@
 
 # 🎮 Jogo "Adivinhe o Número Mágico" (versão web com Flask)<div align="center">
-![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://myoctocat.com/assets/images/base-octocat.svg)
+![Screenshot of a comment on a GitHub issue showing an image, added in the Markdown, of an Octocat smiling and raising a tentacle.](https://github.com/moaaskt/JogoAdivinhaPY/blob/main/Captura%20de%20tela%202025-04-23%20155754.jpg)
 
 Um jogo web com Python + Flask, onde o jogador (ou dois jogadores) tentam adivinhar um número sorteado entre 1 e 100.
 
