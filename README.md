@@ -69,6 +69,11 @@ HTML + CSS para a interface visual.
 Arquivo ranking.txt para salvar os resultados.
 
 
+### v1.0 (23/04/2025)
+- Lançamento inicial com funcionalidades básicas
+- Sistema de pontuação e ranking
+
+
 # 💬 Contato
 Desenvolvido por Moacir S Neto
 
