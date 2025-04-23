@@ -2,149 +2,158 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Jogo do Número Mágico</title>
+  <title>Jogo Adivinha</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-  
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
-      color: #f0f0f0;
-      padding: 20px;
+      background: #0f0f0f;
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
       max-width: 700px;
       margin: auto;
-      line-height: 1.6;
+      padding: 20px;
     }
-  
-    h1, h2 {
-        text-align: center;
-        font-size: 2rem;
-        background: linear-gradient(90deg, #00ffe1, #00b3ff, #00ffe1);
-        background-size: 300%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: neonText 4s ease-in-out infinite;
-        margin-bottom: 10px;
-        text-shadow: 0 0 5px #00ffe1, 0 0 10px #00ffe1;
-      }
-      
-      @keyframes neonText {
-        0% {
-          background-position: 0% 50%;
-          text-shadow: 0 0 5px #00ffe1, 0 0 10px #00ffe1, 0 0 20px #00ffe1;
-        }
-        50% {
-          background-position: 100% 50%;
-          text-shadow: 0 0 10px #00b3ff, 0 0 20px #00b3ff, 0 0 30px #00b3ff;
-        }
-        100% {
-          background-position: 0% 50%;
-          text-shadow: 0 0 5px #00ffe1, 0 0 10px #00ffe1, 0 0 20px #00ffe1;
-        }
-      }
-  
-    ol {
-      background-color: rgba(255, 255, 255, 0.05);
-      border-left: 4px solid #00ffe1;
-      padding: 15px 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px #00ffe144;
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #00ffe1, #00b3ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 3s infinite;
     }
-  
-    input, button {
-      padding: 12px;
-      margin-top: 10px;
-      margin-bottom: 10px;
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px #00ffe1; }
+      50% { text-shadow: 0 0 15px #00b3ff; }
+      100% { text-shadow: 0 0 5px #00ffe1; }
+    }
+    form {
+      background: #1c1c1c;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00ffe188;
+    }
+    input, select, button {
       width: 100%;
-      font-size: 1rem;
+      margin: 10px 0;
+      padding: 10px;
       border-radius: 8px;
       border: none;
-      outline: none;
-      background-color: #1a1a1a;
+      font-size: 1rem;
+    }
+    input, select {
+      background: #111;
       color: #00ffe1;
       border: 1px solid #00ffe1;
-      transition: 0.3s ease-in-out;
     }
-  
-    input:focus {
-      background-color: #111;
-      box-shadow: 0 0 10px #00ffe1;
-    }
-  
     button {
-      background: linear-gradient(90deg, #00ffe1, #00b3ff);
-      color: #000;
+      background: linear-gradient(to right, #00ffe1, #00b3ff);
       font-weight: bold;
       cursor: pointer;
     }
-  
-    button:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 15px #00ffe1;
-    }
-  
-    #mensagem {
+    .mensagem {
       margin-top: 20px;
-      padding: 15px;
-      background-color: #1a1a1a;
-      border: 1px solid #00ffe1;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 1.1rem;
+      padding: 10px;
+      background: #111;
+      border-left: 5px solid #00ffe1;
     }
-  
-    #tentativasArea {
-      margin-top: 20px;
-    }
-  
-    #ranking {
+    .regras {
       margin-top: 30px;
-      padding-top: 10px;
-      background-color: rgba(0, 255, 225, 0.05);
-      border: 1px solid #00ffe1;
-      border-radius: 8px;
       padding: 15px;
+      border: 1px solid #00ffe1;
+      background: #121212;
+      border-radius: 8px;
     }
-  
-    #listaRanking {
-      list-style: none;
-      padding: 0;
+    .regras h2 {
+      color: #00ffe1;
+      margin-bottom: 10px;
     }
-  
-    #listaRanking li {
-      padding: 8px 0;
-      border-bottom: 1px solid #00ffe155;
-      color: #ffffff;
-    }
-  
-    #listaRanking li:last-child {
-      border: none;
+    .ranking {
+      margin-top: 30px;
     }
   </style>
-  
 </head>
 <body>
-  <h1>Jogo: Adivinhe o Número Mágico</h1>
+  <!-- Título principal do jogo com efeito gradiente -->
+  <h1>Adivinhe o Número Mágico</h1>
 
+  <!-- Bloco 1: Tela Inicial (formulário de configuração do jogo) -->
+  {% if fase == "inicio" %}
   <form method="POST">
-    <p>Nome: <input type="text" name="nome" value="{{ nome }}" required></p>
-    <p>Palpite: <input type="number" name="palpite" required></p>
-    <input type="hidden" name="numero_secreto" value="{{ numero_secreto }}">
-    <input type="hidden" name="tentativas" value="{{ tentativas }}">
-    <button type="submit">Enviar Palpite</button>
+    <!-- Campos para os nomes dos jogadores -->
+    <label>Jogador 1:</label>
+    <input type="text" name="jogador1" required>  <!-- Obrigatório -->
+    
+    <label>Jogador 2 (opcional):</label>
+    <input type="text" name="jogador2">  <!-- Opcional -->
+    
+    <!-- Seletor de modo de jogo -->
+    <label>Modo de jogo:</label>
+    <select name="modo_jogo">
+      <option value="1">1 Jogador</option>
+      <option value="2">2 Jogadores</option>
+    </select>
+    
+    <!-- Botão para iniciar o jogo -->
+    <button type="submit">Começar Jogo</button>
   </form>
 
+  <!-- Seção de regras do jogo -->
+  <div class="regras">
+    <h2>Regras do Jogo</h2>
+    <ul>
+      <li>O sistema sorteia um número entre 1 e 100</li>
+      <li>Você tem até 7 tentativas para acertar</li>
+    </ul>
+    
+    <!-- Sistema de pontuação -->
+    <h3>Pontuação:</h3>
+    <ul>
+      <li>1ª tentativa: 100 pontos</li>
+      <li>2ª tentativa: 90 pontos</li>
+      <li>... até a 7ª tentativa: 40 pontos</li>
+      <li>Se errar todas: 0 pontos</li>
+    </ul>
+  </div>
+
+  <!-- Mostra o ranking atual -->
+  <div class="ranking">
+    <h2>Ranking Atual:</h2>
+    <ol>
+      {% for linha in ranking %}  <!-- Loop para cada linha do ranking -->
+        <li>{{ linha }}</li>      <!-- Exibe cada entrada do ranking -->
+      {% endfor %}
+    </ol>
+  </div>
+
+  <!-- Bloco 2: Tela do Jogo (onde os palpites são feitos) -->
+  {% elif fase == "jogo" %}
+  <form method="POST">
+    <!-- Indica qual jogador está na vez -->
+    <p><strong>{{ jogador }}</strong>, é sua vez!</p>
+    
+    <!-- Campo para inserir o palpite -->
+    <label>Digite seu palpite:</label>
+    <input type="number" name="palpite" min="1" max="100" required>
+    
+    <!-- Botão para enviar o palpite -->
+    <button type="submit">Enviar</button>
+  </form>
+  
+  <!-- Área que mostra mensagens de feedback (dicas se o número é maior/menor) -->
   {% if mensagem %}
-    <p><strong>{{ mensagem }}</strong></p>
+    <div class="mensagem">{{ mensagem }}</div>
   {% endif %}
 
-  <h2>Ranking:</h2>
-  <ul>
-    {% for jogador, pontos in ranking %}
-      <li>{{ jogador }} - {{ pontos }} pts</li>
-    {% endfor %}
-  </ul>
+  <!-- Bloco 3: Tela de Fim de Jogo (resultados) -->
+  {% elif fase == "fim" %}
+    <!-- Mostra a mensagem final (se ganhou ou perdeu) -->
+    <div class="mensagem">{{ mensagem }}</div>
+    
+  
+    
+    <!-- Botão para voltar ao início e jogar novamente -->
+    <form method="GET" action="/">
+      <button type="submit">Jogar Novamente</button>
+    </form>
+  {% endif %}
 </body>
 </html>
