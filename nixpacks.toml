@@ -1,0 +1,9 @@
+[phases.build]
+nixPkgs = ["python3", "gcc"]
+commands = [
+    "pip install poetry",
+    "poetry install --no-dev"
+]
+
+[phases.start]
+command = "poetry run gunicorn app:app --bind 0.0.0.0:${PORT}"
